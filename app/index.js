@@ -7,11 +7,13 @@ const server = http.createServer((req,res)=>{
 
     
     const parsedUrl =  url.parse(req.url,true);
-    const pathname = parsedUrl.pathname.replace(/^\/+|\/*$/g,"")
+    const exp = /^(\/)+|(\/)*$/g;
+    const pathname = parsedUrl.pathname.replace(exp,"")
     
     const method = req.method.toLowerCase();
-
-    console.log(`Method ${method} and path ${pathname}`);
+    const query = parsedUrl.query;
+    const headers = req.headers
+    console.log(`\nMethod ${method} and path ${pathname} with query ${JSON.stringify(query)} with headers ${JSON.stringify(headers)}`);
 
     res.end("Hello World !!! \n")
 
